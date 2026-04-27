@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMT Presale • Digital Market Trade | 10x in 3 Months</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #6366f1;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .crypto-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header {
+            font-size: 2.75rem;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-active {
+            color: #6366f1;
+            position: relative;
+        }
+        
+        .nav-active:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .presale-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .presale-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1, #a855f7, #6366f1);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .token-row {
+            transition: all 0.2s ease;
+        }
+
+        .token-row:hover {
+            background-color: rgba(63, 66, 241, 0.05);
+        }
+
+        .roadmap-dot {
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .modern-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+                        0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .crypto-grid {
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glow-indigo {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                        <span class="text-white text-3xl font-black tracking-tighter">DMT</span>
+                    </div>
+                    <div>
+                        <div class="font-display text-3xl font-semibold tracking-tighter">DMT</div>
+                        <div class="text-[10px] text-slate-400 -mt-1 tracking-[3px]">DIGITAL MARKET TRADE</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-10 text-sm font-medium">
+                    <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
+                    <a href="#tokenomics" class="hover:text-indigo-400 transition-colors">Tokenomics</a>
+                    <a href="#roadmap" class="hover:text-indigo-400 transition-colors">Roadmap</a>
+                    <a href="#presale" class="hover:text-indigo-400 transition-colors">Presale</a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <!-- Wallet Connect -->
+                    <button onclick="connectWallet()" 
+                            class="hidden md:flex items-center gap-x-2 px-5 py-2.5 text-sm font-semibold rounded-2xl border border-slate-700 hover:border-indigo-500 transition-all active:scale-[0.985]">
+                        <i class="fa-solid fa-wallet text-indigo-400"></i>
+                        <span>Connect Wallet</span>
+                    </button>
+                    
+                    <!-- Buy Button -->
+                    <button onclick="showBuyModal()" 
+                            class="px-8 py-2.5 bg-white text-slate-950 hover:bg-slate-100 transition-all font-semibold text-sm rounded-2xl flex items-center gap-x-2 shadow-lg shadow-white/10 active:scale-[0.985]">
+                        <span>Join Presale</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    
+                    <!-- Mobile Menu -->
+                    <button class="md:hidden w-10 h-10 flex items-center justify-center text-xl" onclick="toggleMobileMenu()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="pt-20 pb-16 md:pt-24 md:pb-20 relative overflow-hidden">
+        <div class="crypto-grid absolute inset-0 opacity-40"></div>
+        
+        <div class="max-w-screen-2xl mx-auto px-6 pt-12 md:pt-16 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-slate-900 border border-slate-700 mb-6">
+                    <div class="flex items-center gap-x-1.5">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <span class="text-emerald-400 text-xs font-semibold tracking-widest">PRESALE LIVE • STAGE 2</span>
+                    </div>
+                </div>
+
+                <h1 class="text-6xl md:text-7xl font-display font-bold tracking-tighter leading-none mb-6">
+                    The Universal Currency<br>
+                    <span class="crypto-gradient">for Every Digital Marketplace</span>
+                </h1>
+                
+                <p class="max-w-2xl mx-auto text-xl text-slate-300 mb-8">
+                    DMT powers seamless transactions across NFTs, DeFi, gaming, and e-commerce. 
+                    <span class="font-semibold text-white">Guaranteed 10× growth in just 3 months.</span>
+                </p>
+
+                <!-- Trust Bar -->
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10 text-sm">
+                    <div class="flex items-center gap-x-2 text-slate-400">
+                        <i class="fa-solid fa-check-circle text-emerald-400"></i>
+                        <span>Audited by CertiK</span>
+                    </div>
+                    <div class="flex items-center gap-x-2 text-slate-400">
+                        <i class="fa-solid fa-check-circle text-emerald-400"></i>
+                        <span>Backed by 14 VCs</span>
+                    </div>
+                    <div class="flex items-center gap-x-2 text-slate-400">
+                        <i class="fa-solid fa-check-circle text-emerald-400"></i>
+                        <span>12,847 Presale Participants</span>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button onclick="showBuyModal()" 
+                            class="group w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white font-semibold rounded-3xl flex items-center justify-center gap-x-3 text-lg transition-all active:scale-[0.985] shadow-xl shadow-indigo-500/40">
+                        <span>Buy DMT Now</span>
+                        <i class="fa-solid fa-rocket group-active:rotate-12 transition-transform"></i>
+                    </button>
+                    
+                    <button onclick="document.getElementById('tokenomics').scrollIntoView({ behavior: 'smooth' })" 
+                            class="w-full sm:w-auto px-8 py-4 border border-slate-700 hover:bg-slate-900 font-semibold rounded-3xl flex items-center justify-center gap-x-2 text-lg transition-all">
+                        <span>View Tokenomics</span>
+                    </button>
+                </div>
+                
+                <div class="mt-8 text-xs text-slate-500 flex items-center justify-center gap-x-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Smart contract verified on Etherscan • KYC'd team</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Stats -->
+        <div class="max-w-screen-2xl mx-auto px-6 mt-16">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                <div class="glass rounded-3xl p-5 text-center border border-slate-800">
+                    <div class="text-emerald-400 text-xs font-semibold tracking-widest mb-1">TOTAL RAISED</div>
+                    <div class="text-4xl font-display font-semibold stat-number" id="raised">4.87</div>
+                    <div class="text-sm text-slate-400">/ 8.5M USD</div>
+                </div>
+                <div class="glass rounded-3xl p-5 text-center border border-slate-800">
+                    <div class="text-emerald-400 text-xs font-semibold tracking-widest mb-1">PARTICIPANTS</div>
+                    <div class="text-4xl font-display font-semibold stat-number" id="participants">12,847</div>
+                    <div class="text-sm text-slate-400">+1,240 today</div>
+                </div>
+                <div class="glass rounded-3xl p-5 text-center border border-slate-800">
+                    <div class="text-emerald-400 text-xs font-semibold tracking-widest mb-1">CURRENT PRICE</div>
+                    <div class="text-4xl font-display font-semibold">$0.010</div>
+                    <div class="text-sm text-emerald-400">+150% from Stage 1</div>
+                </div>
+                <div class="glass rounded-3xl p-5 text-center border border-slate-800">
+                    <div class="text-emerald-400 text-xs font-semibold tracking-widest mb-1">LISTING PRICE TARGET</div>
+                    <div class="text-4xl font-display font-semibold">$0.10</div>
+                    <div class="text-sm text-slate-400">10× from presale</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTDOWN TIMER -->
+    <div class="max-w-screen-2xl mx-auto px-6 pb-12">
+        <div class="max-w-3xl mx-auto">
+            <div class="glass rounded-3xl p-8 border border-slate-700">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <div class="uppercase text-xs tracking-[2px] text-slate-400 font-medium mb-1">PRESALE STAGE 2 ENDS IN</div>
+                        <div class="text-3xl font-display font-semibold">Stage 2 closes in</div>
+                    </div>
+                    
+                    <div id="countdown" class="flex items-center gap-x-3 text-center">
+                        <!-- Populated by JS -->
+                    </div>
+                    
+                    <div class="text-right">
+                        <div class="text-xs text-slate-400">Next price jump</div>
+                        <div class="font-semibold text-emerald-400">+150% → $0.025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="max-w-screen-2xl mx-auto px-6 py-20 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="uppercase tracking-[3px] text-xs text-indigo-400 font-semibold mb-4">THE PROBLEM</div>
+                    <h2 class="section-header leading-none tracking-tighter mb-6">Digital marketplaces are fragmented.<br>Transactions are expensive.</h2>
+                    
+                    <div class="space-y-6 text-lg text-slate-300">
+                        <p>Every platform — OpenSea, Steam, Binance NFT, Roblox, Shopify stores — uses its own token or payment rail. This creates friction, high fees (up to 15%), and siloed liquidity.</p>
+                        
+                        <p><span class="font-semibold text-white">DMT solves this.</span> One token. One wallet. Instant settlement across every digital economy.</p>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <div class="px-4 py-2 bg-slate-900 rounded-2xl text-sm flex items-center gap-x-2 border border-slate-700">
+                            <i class="fa-solid fa-globe text-indigo-400"></i>
+                            <span>50+ marketplaces integrated</span>
+                        </div>
+                        <div class="px-4 py-2 bg-slate-900 rounded-2xl text-sm flex items-center gap-x-2 border border-slate-700">
+                            <i class="fa-solid fa-bolt text-indigo-400"></i>
+                            <span>&lt;2s settlement</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="glass rounded-3xl p-8 border border-slate-700 modern-shadow">
+                        <div class="text-sm uppercase tracking-widest text-slate-400 mb-4">DMT UTILITY</div>
+                        
+                        <div class="space-y-5">
+                            <div class="flex gap-4">
+                                <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 flex-shrink-0 flex items-center justify-center">
+                                    <i class="fa-solid fa-exchange-alt text-indigo-400"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Cross-Platform Payments</div>
+                                    <div class="text-sm text-slate-400">Buy NFTs on OpenSea using DMT earned on Axie Infinity.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4">
+                                <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 flex-shrink-0 flex items-center justify-center">
+                                    <i class="fa-solid fa-handshake text-indigo-400"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Instant Settlement</div>
+                                    <div class="text-sm text-slate-400">Zero gas fees on Layer 2. Finality in under 2 seconds.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4">
+                                <div class="w-9 h-9 rounded-2xl bg-indigo-500/10 flex-shrink-0 flex items-center justify-center">
+                                    <i class="fa-solid fa-chart-line text-indigo-400"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold">Staking &amp; Governance</div>
+                                    <div class="text-sm text-slate-400">Earn 18–42% APY. Vote on marketplace integrations.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -bottom-4 -right-4 bg-gradient-to-br from-indigo-500 to-violet-500 text-white text-xs px-5 py-2 rounded-3xl font-medium shadow-xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-rocket"></i>
+                        <span>Listed on 7 exchanges Q2 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRESALE STAGES -->
+    <section id="presale" class="max-w-screen-2xl mx-auto px-6 py-16 bg-slate-900/50 border-y border-slate-800">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline text-xs tracking-[3px] font-semibold text-emerald-400">LIMITED TIME</div>
+                <h2 class="section-header tracking-tighter mt-2">Presale Stages &amp; Pricing</h2>
+                <p class="mt-3 text-lg text-slate-300 max-w-md mx-auto">Early participants secure the lowest prices. Stage 3 begins in 11 days.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-5 gap-4">
+                <!-- Stage 1 -->
+                <div class="presale-card bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 relative overflow-hidden">
+                    <div class="absolute top-4 right-4 text-xs px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full font-medium">SOLD OUT</div>
+                    <div class="text-xs text-slate-400">STAGE 1 • PRIVATE</div>
+                    <div class="mt-3">
+                        <div class="text-4xl font-display font-semibold">$0.005</div>
+                        <div class="text-xs text-emerald-400">+400% ROI already realized</div>
+                    </div>
+                    <div class="mt-6 text-xs">
+                        <div class="flex justify-between text-slate-400 mb-1">
+                            <span>Raised</span>
+                            <span class="font-medium text-white">$1.2M / $1.2M</span>
+                        </div>
+                        <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full w-full bg-emerald-500 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stage 2 - Current -->
+                <div class="presale-card bg-slate-900 border-2 border-indigo-500 rounded-3xl p-6 relative scale-[1.02] shadow-xl shadow-indigo-500/10">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-6 py-0.5 bg-indigo-500 text-xs font-bold tracking-widest rounded-b-2xl">CURRENT STAGE</div>
+                    <div class="text-xs text-slate-400 mt-4">STAGE 2 • PUBLIC</div>
+                    <div class="mt-2">
+                        <div class="text-4xl font-display font-semibold">$0.010</div>
+                        <div class="text-xs text-emerald-400">10× from listing target</div>
+                    </div>
+                    <div class="mt-6 text-xs">
+                        <div class="flex justify-between text-slate-400 mb-1">
+                            <span>Raised</span>
+                            <span class="font-medium text-white">$3.67M / $4.5M</span>
+                        </div>
+                        <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full w-[81%] bg-indigo-500 rounded-full"></div>
+                        </div>
+                    </div>
+                    <div class="text-[10px] text-indigo-400 mt-2">81% filled • 2,941 buyers today</div>
+                </div>
+                
+                <!-- Stage 3 -->
+                <div class="presale-card bg-slate-900 border border-slate-700 rounded-3xl p-6 opacity-90">
+                    <div class="text-xs text-slate-400">STAGE 3 • FINAL</div>
+                    <div class="mt-3">
+                        <div class="text-4xl font-display font-semibold">$0.025</div>
+                        <div class="text-xs text-amber-400">+150% from current</div>
+                    </div>
+                    <div class="mt-6 text-xs">
+                        <div class="flex justify-between text-slate-400 mb-1">
+                            <span>Soft Cap</span>
+                            <span class="font-medium text-white">$2.8M</span>
+                        </div>
+                        <div class="h-1.5 bg-slate-800 rounded-full"></div>
+                    </div>
+                    <div class="text-xs text-slate-400 mt-4">Starts Feb 4, 2026</div>
+                </div>
+                
+                <!-- Stage 4 -->
+                <div class="presale-card bg-slate-900 border border-slate-700 rounded-3xl p-6 opacity-75">
+                    <div class="text-xs text-slate-400">STAGE 4 • WHALE</div>
+                    <div class="mt-3">
+                        <div class="text-4xl font-display font-semibold">$0.04</div>
+                        <div class="text-xs text-amber-400">Institutional round</div>
+                    </div>
+                    <div class="mt-6 text-xs text-slate-400">Private allocation only • Min $50k</div>
+                </div>
+                
+                <div class="presale-card bg-slate-900 border border-slate-700 rounded-3xl p-6 flex flex-col justify-center items-center text-center opacity-60">
+                    <div class="text-xs text-slate-400">POST-PRESALE</div>
+                    <div class="my-4 text-5xl">🚀</div>
+                    <div class="font-semibold">CEX Listing</div>
+                    <div class="text-xs mt-1 text-emerald-400">Target: $0.10</div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 text-xs text-slate-500">All stages have hard caps. Once filled, price increases permanently.</div>
+        </div>
+    </section>
+
+    <!-- TOKENOMICS -->
+    <section id="tokenomics" class="max-w-screen-2xl mx-auto px-6 py-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left -->
+                <div>
+                    <div class="uppercase text-xs tracking-[3px] text-indigo-400 font-semibold">TOKENOMICS</div>
+                    <h2 class="section-header tracking-tighter mt-2 mb-6">Built for Long-Term Value</h2>
+                    
+                    <div class="space-y-6 text-slate-300">
+                        <p>Total Supply: <span class="font-mono font-semibold text-white">1,000,000,000 DMT</span></p>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-slate-400">Presale Allocation</span>
+                                <span class="font-semibold">400,000,000 (40%)</span>
+                            </div>
+                            <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-indigo-500 to-violet-500 w-[40%]" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-violet-500"></div>
+                                <span>Liquidity Pool: 25%</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                                <span>Team &amp; Advisors: 15%</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                                <span>Marketing: 10%</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-sky-500"></div>
+                                <span>Ecosystem Reserve: 5%</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                                <span>Staking Rewards: 5%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-slate-900 border border-slate-700 rounded-2xl text-xs">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-info-circle text-indigo-400 mt-0.5"></i>
+                            <div>
+                                <span class="font-semibold">Vesting Schedule:</span> Team tokens locked for 24 months with 6-month cliff. 
+                                Presale tokens unlock 25% at TGE, then linear over 6 months.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pie Chart -->
+                <div class="glass rounded-3xl p-8 border border-slate-700">
+                    <canvas id="tokenomicsChart" width="300" height="300"></canvas>
+                    <div class="text-center mt-4 text-xs text-slate-400">Token Distribution • 1B Total Supply</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="max-w-screen-2xl mx-auto px-6 py-20 border-t border-slate-800 bg-slate-900/60">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14">
+                <div class="text-xs uppercase tracking-[3px] text-indigo-400 font-semibold">2026–2027</div>
+                <h2 class="section-header tracking-tighter mt-2">Launch Roadmap</h2>
+            </div>
+            
+            <div class="relative max-w-3xl mx-auto">
+                <!-- Vertical line -->
+                <div class="absolute left-7 top-10 bottom-10 w-px bg-gradient-to-b from-indigo-500/30 via-indigo-500/30 to-transparent hidden md:block"></div>
+                
+                <div class="space-y-12">
+                    <!-- Phase 1 -->
+                    <div class="flex gap-8">
+                        <div class="w-14 h-14 flex-shrink-0 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-xl font-bold shadow-lg">Q1</div>
+                        <div class="flex-1 pt-1">
+                            <div class="flex items-center gap-x-3">
+                                <div class="font-semibold text-xl">Presale &amp; Community Build</div>
+                                <div class="px-3 py-px text-xs bg-emerald-500/10 text-emerald-400 rounded-full">COMPLETE</div>
+                            </div>
+                            <div class="text-slate-300 mt-2">Stage 1 &amp; 2 live • 12.8k holders • CertiK audit passed • 3 major marketplace partnerships signed</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phase 2 -->
+                    <div class="flex gap-8">
+                        <div class="w-14 h-14 flex-shrink-0 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-xl font-bold shadow-lg">Q2</div>
+                        <div class="flex-1 pt-1">
+                            <div class="flex items-center gap-x-3">
+                                <div class="font-semibold text-xl">TGE &amp; Exchange Listings</div>
+                                <div class="px-3 py-px text-xs bg-amber-500/10 text-amber-400 rounded-full">IN PROGRESS</div>
+                            </div>
+                            <div class="text-slate-300 mt-2">Token Generation Event • Listings on Binance, OKX, Bybit, KuCoin • DMT Bridge live • First 10 marketplace integrations</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phase 3 -->
+                    <div class="flex gap-8">
+                        <div class="w-14 h-14 flex-shrink-0 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-xl font-bold shadow-lg">Q3</div>
+                        <div class="flex-1 pt-1">
+                            <div class="font-semibold text-xl">Ecosystem Expansion</div>
+                            <div class="text-slate-300 mt-2">Launch DMT Pay (merchant tools) • 50+ marketplace integrations • Staking v2 with 42% APY • Governance DAO live</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phase 4 -->
+                    <div class="flex gap-8">
+                        <div class="w-14 h-14 flex-shrink-0 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-xl font-bold shadow-lg">Q4</div>
+                        <div class="flex-1 pt-1">
+                            <div class="font-semibold text-xl">Global Dominance</div>
+                            <div class="text-slate-300 mt-2">Mobile wallet release • Cross-chain expansion (Solana, Base) • Enterprise partnerships • 10× price target achieved</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS / SOCIAL PROOF -->
+    <section class="max-w-screen-2xl mx-auto px-6 py-16">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <h3 class="text-3xl font-display font-semibold tracking-tight">Trusted by the best</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass rounded-3xl p-7 border border-slate-700">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <img src="https://i.pravatar.cc/48?img=28" class="w-11 h-11 rounded-2xl" alt="">
+                        <div>
+                            <div class="font-semibold">Alex Rivera</div>
+                            <div class="text-xs text-slate-400">Founder @ PixelVault</div>
+                        </div>
+                    </div>
+                    <div class="italic text-sm">"DMT is the missing piece. Our users now trade across 7 platforms with one token. Volume tripled in two weeks."</div>
+                </div>
+                
+                <div class="glass rounded-3xl p-7 border border-slate-700">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <img src="https://i.pravatar.cc/48?img=47" class="w-11 h-11 rounded-2xl" alt="">
+                        <div>
+                            <div class="font-semibold">Priya Patel</div>
+                            <div class="text-xs text-slate-400">Head of Product @ MetaForge</div>
+                        </div>
+                    </div>
+                    <div class="italic text-sm">"The only token that actually delivers on utility. Integration took 4 days. Our community is obsessed."</div>
+                </div>
+                
+                <div class="glass rounded-3xl p-7 border border-slate-700">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <img src="https://i.pravatar.cc/48?img=12" class="w-11 h-11 rounded-2xl" alt="">
+                        <div>
+                            <div class="font-semibold">Marcus Chen</div>
+                            <div class="text-xs text-slate-400">Managing Partner @ Dragonfly Capital</div>
+                        </div>
+                    </div>
+                    <div class="italic text-sm">"We led the seed round. DMT has the clearest path to becoming the Visa of digital goods. 10× is conservative."</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <div class="max-w-screen-2xl mx-auto px-6 pb-20">
+        <div class="max-w-3xl mx-auto text-center glass rounded-[3rem] p-14 border border-slate-700">
+            <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center mb-6">
+                <i class="fa-solid fa-rocket text-white text-4xl"></i>
+            </div>
+            
+            <h2 class="text-5xl font-display font-bold tracking-tighter">Ready to 10× your portfolio?</h2>
+            <p class="mt-4 text-xl text-slate-300">Join 12,847 early believers securing DMT at the lowest possible price.</p>
+            
+            <div class="mt-8 flex justify-center">
+                <button onclick="showBuyModal()" 
+                        class="px-14 py-4 text-lg font-semibold bg-white hover:bg-slate-100 text-slate-950 rounded-3xl flex items-center gap-x-3 transition-all active:scale-[0.985]">
+                    <span>Buy DMT Now — $0.010</span>
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+            </div>
+            
+            <div class="text-xs text-slate-500 mt-6">Minimum purchase: 0.05 ETH • Instant token delivery to your wallet</div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950">
+        <div class="max-w-screen-2xl mx-auto px-6 py-14 text-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-y-8">
+                <div>
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
+                            <span class="text-white text-xl font-black">D</span>
+                        </div>
+                        <span class="font-semibold text-lg">Digital Market Trade</span>
+                    </div>
+                    <div class="text-xs text-slate-500">© 2026 DMT Foundation. All rights reserved.</div>
+                </div>
+                
+                <div class="flex flex-wrap gap-x-8 gap-y-2 text-xs">
+                    <a href="#" class="hover:text-white transition-colors">Whitepaper</a>
+                    <a href="#" class="hover:text-white transition-colors">Audit Report</a>
+                    <a href="#" class="hover:text-white transition-colors">Token Contract</a>
+                    <a href="#" class="hover:text-white transition-colors">Legal</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                </div>
+                
+                <div class="flex items-center gap-x-5 text-xl">
+                    <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="mt-10 pt-8 border-t border-slate-800 text-[10px] text-slate-500 leading-relaxed max-w-3xl">
+                <strong>Disclaimer:</strong> This is a promotional website for a hypothetical token. Cryptocurrency investments carry significant risk. Past performance does not guarantee future results. 
+                The "10× in 3 months" projection is based on internal market modeling and comparable projects and should not be considered financial advice. Always do your own research. 
+                DMT tokens are not available to residents of certain jurisdictions.
+            </div>
+        </div>
+    </footer>
+
+    <!-- BUY MODAL -->
+    <div id="buyModal" onclick="if (event.target.id === 'buyModal') hideBuyModal()" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl z-[100] flex items-center justify-center p-6">
+        <div onclick="event.stopImmediatePropagation()" class="glass max-w-md w-full rounded-3xl border border-slate-700 overflow-hidden">
+            <!-- Modal Header -->
+            <div class="px-8 pt-8 pb-6 border-b border-slate-700 flex items-center justify-between">
+                <div>
+                    <div class="font-semibold text-2xl">Buy DMT</div>
+                    <div class="text-xs text-emerald-400">Current price: $0.010 • Stage 2</div>
+                </div>
+                <button onclick="hideBuyModal()" class="text-2xl text-slate-400 hover:text-white">&times;</button>
+            </div>
+            
+            <!-- Connect State -->
+            <div id="modal-connect-state" class="p-8 hidden">
+                <div class="text-center py-6">
+                    <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-wallet text-white text-4xl"></i>
+                    </div>
+                    <div class="text-2xl font-semibold mb-2">Connect Wallet to Buy</div>
+                    <p class="text-slate-400 max-w-xs mx-auto mb-8">Connect your Ethereum wallet to purchase DMT and track your allocation.</p>
+                    
+                    <button onclick="connectWalletFromModal()" 
+                            class="px-10 py-4 bg-white text-slate-950 hover:bg-slate-100 font-semibold rounded-3xl flex items-center justify-center gap-x-3 mx-auto text-lg transition-all active:scale-[0.985]">
+                        <span>Connect Wallet</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    
+                    <div class="mt-6 text-xs text-slate-500">Supports MetaMask and other EVM wallets</div>
+                </div>
+            </div>
+            
+            <!-- Buy State -->
+            <div id="modal-buy-state" class="p-8">
+                <!-- Amount Input -->
+                <div class="mb-6">
+                    <div class="flex justify-between text-sm mb-2">
+                        <div>You pay</div>
+                        <div class="text-slate-400">Balance: <span class="font-mono">— ETH</span></div>
+                    </div>
+                    
+                    <div class="flex items-center bg-slate-900 border border-slate-700 rounded-2xl px-5 py-3">
+                        <input id="ethAmount" type="number" value="0.05" step="0.01" class="flex-1 bg-transparent text-4xl font-display font-semibold outline-none" oninput="calculateDMT()">
+                        <div class="text-right">
+                            <div class="text-xs text-slate-400">ETH</div>
+                            <div class="font-mono text-xs text-emerald-400">≈ $115</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Receive -->
+                <div class="mb-8">
+                    <div class="text-sm mb-2">You receive</div>
+                    <div class="flex items-center justify-between bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4">
+                        <div id="dmtAmount" class="text-4xl font-display font-semibold">5,000</div>
+                        <div class="text-right">
+                            <div class="font-semibold">DMT</div>
+                            <div class="text-xs text-emerald-400">at $0.010</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary -->
+                <div class="text-xs space-y-2 text-slate-300 mb-8">
+                    <div class="flex justify-between">
+                        <span>Network Fee (est.)</span>
+                        <span class="font-mono">0.0008 ETH</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Bonus Tokens (Stage 2)</span>
+                        <span class="text-emerald-400 font-medium">+250 DMT</span>
+                    </div>
+                </div>
+                
+                <button onclick="purchaseTokens()" 
+                        class="w-full py-4 bg-gradient-to-r from-indigo-500 to-violet-500 hover:brightness-110 transition-all text-white font-semibold rounded-2xl flex items-center justify-center gap-x-2 text-lg">
+                    <span>Confirm &amp; Send ETH</span>
+                    <i class="fa-solid fa-check-double"></i>
+                </button>
+                
+                <div class="text-center text-xs text-slate-500 mt-4">Real transaction • No KYC required</div>
+                
+                <!-- Real tx warning -->
+                <div class="real-tx-warning mt-4 text-[10px] bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3 py-2 rounded-2xl flex items-start gap-2">
+                    <i class="fa-solid fa-exclamation-triangle mt-0.5"></i>
+                    <div>
+                        <strong>Real transaction.</strong> This sends ETH directly to the presale wallet.
+                        <span class="underline cursor-pointer" onclick="switchToSepolia()">Use Sepolia for testing.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-emerald-600 text-white px-8 py-3.5 rounded-3xl flex items-center gap-x-3 shadow-2xl z-[200]">
+        <i class="fa-solid fa-check-circle"></i>
+        <span id="toastMessage">Purchase successful! Tokens sent to wallet.</span>
+    </div>
+
+    <script>
+        // Global state
+        let connectedAccount = null;
+        const DMT_PRICE = 0.010; // Current presale price
+        const PROJECTED_PRICE = 0.10; // 10x target
+        
+        // ✅ Your presale receiver address (ETH will be sent here)
+        const PRESALE_RECEIVER = "0x6505402aC811621F6eD081Be36B4AC125f5d1592";
+
+        // Tailwind script
+        function initTailwind() {
+            document.documentElement.style.setProperty('--accent', '#6366f1');
+        }
+        
+        // Countdown Timer
+        function startCountdown() {
+            const targetDate = new Date('2026-07-24T00:00:00').getTime();
+            const countdownEl = document.getElementById('countdown');
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                
+                if (distance < 0) {
+                    countdownEl.innerHTML = `<div class="text-center"><div class="text-emerald-400 font-semibold">STAGE CLOSED</div></div>`;
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                countdownEl.innerHTML = `
+                    <div class="flex gap-3">
+                        <div class="text-center">
+                            <div class="text-4xl font-display font-semibold tabular-nums">${days}</div>
+                            <div class="text-[9px] text-slate-400 -mt-1">DAYS</div>
+                        </div>
+                        <div class="text-4xl font-light text-slate-600">:</div>
+                        <div class="text-center">
+                            <div class="text-4xl font-display font-semibold tabular-nums">${hours}</div>
+                            <div class="text-[9px] text-slate-400 -mt-1">HOURS</div>
+                        </div>
+                        <div class="text-4xl font-light text-slate-600">:</div>
+                        <div class="text-center">
+                            <div class="text-4xl font-display font-semibold tabular-nums">${minutes}</div>
+                            <div class="text-[9px] text-slate-400 -mt-1">MIN</div>
+                        </div>
+                        <div class="text-4xl font-light text-slate-600">:</div>
+                        <div class="text-center">
+                            <div class="text-4xl font-display font-semibold tabular-nums">${seconds}</div>
+                            <div class="text-[9px] text-slate-400 -mt-1">SEC</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // Tokenomics Pie Chart
+        let chartInstance = null;
+        
+        function createTokenomicsChart() {
+            const ctx = document.getElementById('tokenomicsChart');
+            
+            if (chartInstance) chartInstance.destroy();
+            
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Presale', 'Liquidity', 'Team & Advisors', 'Marketing', 'Ecosystem', 'Staking'],
+                    datasets: [{
+                        data: [40, 25, 15, 10, 5, 5],
+                        backgroundColor: [
+                            '#6366f1',  // indigo
+                            '#a855f7',  // violet
+                            '#f59e0b',  // amber
+                            '#10b981',  // emerald
+                            '#0ea5e9',  // sky
+                            '#f43f5e'   // rose
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 25
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '72%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#64748b',
+                                padding: 18,
+                                font: { size: 12, family: 'Inter' },
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1e2937',
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: (context) => `${context.label}: ${context.raw}%`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Calculate DMT from ETH
+        function calculateDMT() {
+            const ethInput = parseFloat(document.getElementById('ethAmount').value) || 0;
+            const currentPrice = 0.010; // $0.010 per DMT
+            const ethPrice = 2300; // approx ETH price
+            
+            const usdValue = ethInput * ethPrice;
+            const dmtAmount = Math.floor(usdValue / currentPrice);
+            
+            document.getElementById('dmtAmount').textContent = dmtAmount.toLocaleString();
+        }
+        
+        // Show Buy Modal — always works reliably
+        function showBuyModal() {
+            const modal = document.getElementById('buyModal');
+            const connectState = document.getElementById('modal-connect-state');
+            const buyState = document.getElementById('modal-buy-state');
+            const header = modal.querySelector('.px-8.pt-8.pb-6');
+            
+            // Remove any old wallet info
+            const oldWallet = header.querySelector('.connected-wallet');
+            if (oldWallet) oldWallet.remove();
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            if (!connectedAccount) {
+                // Show connect state
+                connectState.classList.remove('hidden');
+                buyState.classList.add('hidden');
+            } else {
+                // Show buy state + connected wallet info
+                connectState.classList.add('hidden');
+                buyState.classList.remove('hidden');
+                
+                // Add connected address to header
+                const walletInfo = document.createElement('div');
+                walletInfo.className = 'connected-wallet mt-2 flex items-center gap-x-2 text-xs text-emerald-400 font-mono';
+                walletInfo.innerHTML = `<i class="fa-solid fa-wallet"></i> <span>${connectedAccount.slice(0,6)}...${connectedAccount.slice(-4)}</span>`;
+                header.appendChild(walletInfo);
+                
+                // Initialize amount calculation
+                setTimeout(() => {
+                    const ethInput = document.getElementById('ethAmount');
+                    if (ethInput) {
+                        ethInput.oninput = calculateDMT;
+                        calculateDMT();
+                    }
+                }, 30);
+            }
+        }
+        
+        // Helper called from the connect button inside modal
+        function connectWalletFromModal() {
+            connectWallet();
+            
+            // After connection, refresh the modal to show buy form
+            setTimeout(() => {
+                const modal = document.getElementById('buyModal');
+                if (connectedAccount && !modal.classList.contains('hidden')) {
+                    showBuyModal();
+                }
+            }, 2200);
+        }
+        
+        function hideBuyModal() {
+            const modal = document.getElementById('buyModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        // REAL Ethereum purchase — sends ETH directly to your presale wallet
+        async function purchaseTokens() {
+            if (!connectedAccount) {
+                connectWallet();
+                return;
+            }
+            
+            const ethInput = parseFloat(document.getElementById('ethAmount').value);
+            if (!ethInput || ethInput <= 0) {
+                alert("Please enter a valid ETH amount");
+                return;
+            }
+            
+            const dmtAmount = Math.floor(ethInput * 2300 / DMT_PRICE); // rough USD conversion
+            const usdValue = (ethInput * 2300).toFixed(2);
+            
+            const btns = document.querySelectorAll('#buyModal button');
+            btns[btns.length - 1].innerHTML = `<span class="flex items-center justify-center gap-x-2"><i class="fa-solid fa-spinner fa-spin"></i> Sending ETH...</span>`;
+            btns[btns.length - 1].disabled = true;
+            
+            try {
+                // Convert ETH to wei (hex)
+                const valueInWei = '0x' + BigInt(Math.floor(ethInput * 1e18)).toString(16);
+                
+                const txParams = {
+                    from: connectedAccount,
+                    to: PRESALE_RECEIVER,
+                    value: valueInWei,
+                    gas: '0x5208' // 21000 gas for simple transfer
+                };
+                
+                // This actually sends the transaction — user will see MetaMask popup
+                const txHash = await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [txParams]
+                });
+                
+                // Success — now credit DMT off-chain
+                let port = getPortfolio(connectedAccount);
+                port.balance = (port.balance || 0) + dmtAmount;
+                port.purchases = port.purchases || [];
+                port.purchases.unshift({
+                    amount: dmtAmount,
+                    usd: parseFloat(usdValue),
+                    time: new Date().toISOString(),
+                    tx: txHash
+                });
+                savePortfolio(connectedAccount, port);
+                
+                const isNew = port.purchases.length === 1;
+                updateGlobalStats(parseFloat(usdValue), isNew);
+                updatePortfolioDisplay();
+                
+                hideBuyModal();
+                
+                const toast = document.getElementById('toast');
+                const message = document.getElementById('toastMessage');
+                
+                message.innerHTML = `
+                    <div class="font-semibold text-emerald-400">✅ ETH Sent Successfully!</div>
+                    <div class="text-xs mt-1">+${dmtAmount.toLocaleString()} DMT credited to your portfolio</div>
+                    <div class="text-xs mt-1 font-mono opacity-90">${txHash.slice(0,10)}...${txHash.slice(-6)}</div>
+                    <a href="https://etherscan.io/tx/${txHash}" target="_blank" class="underline text-xs block mt-1">View transaction on Etherscan →</a>
+                `;
+                toast.style.backgroundColor = '#10b981';
+                toast.style.display = 'flex';
+                toast.classList.remove('hidden');
+                
+                launchConfetti();
+                
+                setTimeout(() => {
+                    toast.style.transition = 'all 0.4s ease';
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.style.opacity = '1';
+                        toast.style.transition = '';
+                        toast.style.display = 'none';
+                        toast.style.backgroundColor = '#10b981';
+                        toast.classList.add('hidden');
+                    }, 400);
+                }, 6500);
+                
+            } catch (err) {
+                console.error('Transaction failed:', err);
+                hideBuyModal();
+                
+                const toast = document.getElementById('toast');
+                const message = document.getElementById('toastMessage');
+                
+                let errorMsg = 'Transaction failed or rejected.';
+                if (err.code === 4001) errorMsg = 'Transaction rejected by user.';
+                if (err.message && err.message.includes('insufficient')) errorMsg = 'Insufficient ETH balance.';
+                
+                message.innerHTML = `<div class="text-red-400">${errorMsg}</div>`;
+                toast.style.backgroundColor = '#ef4444';
+                toast.style.display = 'flex';
+                toast.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    toast.style.transition = 'all 0.3s ease';
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.style.opacity = '1';
+                        toast.style.transition = '';
+                        toast.style.display = 'none';
+                        toast.style.backgroundColor = '#10b981';
+                        toast.classList.add('hidden');
+                    }, 300);
+                }, 2800);
+            } finally {
+                // Re-enable button if still visible
+                btns.forEach(b => b.disabled = false);
+            }
+        }
+        
+        // Update live stats (fake live feeling)
+        function updateLiveStats(isPurchase = false) {
+            const raisedEl = document.getElementById('raised');
+            const participantsEl = document.getElementById('participants');
+            
+            if (isPurchase) {
+                // Simulate purchase impact
+                let currentRaised = parseFloat(raisedEl.textContent);
+                currentRaised += 0.0345; // ~$3.45k from 1.5 ETH
+                raisedEl.textContent = currentRaised.toFixed(2);
+                
+                let currentParticipants = parseInt(participantsEl.textContent.replace(',', ''));
+                currentParticipants += 1;
+                participantsEl.textContent = currentParticipants.toLocaleString();
+            }
+            
+            // Random small updates every 25 seconds
+            setInterval(() => {
+                if (!isPurchase && Math.random() > 0.6) {
+                    let currentRaised = parseFloat(raisedEl.textContent);
+                    currentRaised += (Math.random() * 0.08 + 0.02);
+                    raisedEl.textContent = currentRaised.toFixed(2);
+                    
+                    if (Math.random() > 0.7) {
+                        let currentParticipants = parseInt(participantsEl.textContent.replace(',', ''));
+                        currentParticipants += Math.floor(Math.random() * 3) + 1;
+                        participantsEl.textContent = currentParticipants.toLocaleString();
+                    }
+                }
+            }, 25000);
+        }
+        
+        // Simple confetti
+        function launchConfetti() {
+            const colors = ['#6366f1', '#a855f7', '#22c55e'];
+            for (let i = 0; i < 65; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = '-10px';
+                particle.style.width = '8px';
+                particle.style.height = '8px';
+                particle.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.zIndex = '9999';
+                particle.style.opacity = Math.random() + 0.4;
+                document.body.appendChild(particle);
+                
+                const duration = Math.random() * 2800 + 1800;
+                const angle = Math.random() * 60 - 30;
+                
+                particle.animate([
+                    { 
+                        transform: `translateY(0) rotate(0deg)`,
+                        opacity: particle.style.opacity 
+                    },
+                    { 
+                        transform: `translateY(${window.innerHeight + 80}px) rotate(${angle * 8}deg)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: duration,
+                    easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
+                }).onfinish = () => particle.remove();
+            }
+        }
+        
+        // Real MetaMask Wallet Connection
+        function connectWallet() {
+            if (typeof window.ethereum === 'undefined') {
+                const toast = document.getElementById('toast');
+                const message = document.getElementById('toastMessage');
+                message.innerHTML = 'MetaMask not detected. <a href="https://metamask.io/download/" target="_blank" class="underline">Install MetaMask</a>';
+                toast.style.display = 'flex';
+                toast.classList.remove('hidden');
+                toast.style.backgroundColor = '#f59e0b'; // amber for warning
+                
+                setTimeout(() => {
+                    toast.style.transition = 'all 0.4s ease';
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.style.opacity = '1';
+                        toast.style.transition = '';
+                        toast.style.display = 'none';
+                        toast.style.backgroundColor = '#10b981'; // reset to emerald
+                        toast.classList.add('hidden');
+                    }, 400);
+                }, 4500);
+                return;
+            }
+
+            const btns = document.querySelectorAll('button');
+            btns.forEach(btn => {
+                if (btn.innerText.includes('Connect') || btn.innerHTML.includes('wallet')) {
+                    btn.innerHTML = `<span class="flex items-center gap-x-2"><i class="fa-solid fa-spinner fa-spin"></i> Connecting...</span>`;
+                }
+            });
+
+            window.ethereum.request({ method: 'eth_requestAccounts' })
+                .then(accounts => {
+                    connectedAccount = accounts[0];
+                    updateWalletUI();
+                    updateNetworkUI();
+                    updatePortfolioDisplay();
+                    
+                    // Listen for account changes
+                    if (!window.ethereum._hasAccountListener) {
+                        window.ethereum.on('accountsChanged', handleAccountsChanged);
+                        window.ethereum._hasAccountListener = true;
+                    }
+                    
+                    // Optional: chain changed listener
+                    window.ethereum.on('chainChanged', () => window.location.reload());
+                    
+                    // Success toast
+                    const toast = document.getElementById('toast');
+                    const message = document.getElementById('toastMessage');
+                    message.innerHTML = `Connected: <span class="font-mono">${connectedAccount.slice(0,6)}...${connectedAccount.slice(-4)}</span>`;
+                    toast.style.display = 'flex';
+                    toast.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        toast.style.transition = 'all 0.4s ease';
+                        toast.style.opacity = '0';
+                        setTimeout(() => {
+                            toast.style.opacity = '1';
+                            toast.style.transition = '';
+                            toast.style.display = 'none';
+                            toast.classList.add('hidden');
+                        }, 400);
+                    }, 2800);
+                })
+                .catch(err => {
+                    console.error('Wallet connection failed:', err);
+                    const toast = document.getElementById('toast');
+                    const message = document.getElementById('toastMessage');
+                    message.textContent = 'Connection rejected or failed.';
+                    toast.style.display = 'flex';
+                    toast.classList.remove('hidden');
+                    toast.style.backgroundColor = '#ef4444';
+                    
+                    setTimeout(() => {
+                        toast.style.transition = 'all 0.4s ease';
+                        toast.style.opacity = '0';
+                        setTimeout(() => {
+                            toast.style.opacity = '1';
+                            toast.style.transition = '';
+                            toast.style.display = 'none';
+                            toast.style.backgroundColor = '#10b981';
+                            toast.classList.add('hidden');
+                        }, 400);
+                    }, 2200);
+                    
+                    // Reset buttons
+                    btns.forEach(btn => {
+                        if (btn.innerHTML.includes('Connecting')) {
+                            btn.innerHTML = `<span class="flex items-center gap-x-2"><i class="fa-solid fa-wallet text-indigo-400"></i> <span>Connect Wallet</span></span>`;
+                        }
+                    });
+                });
+        }
+
+        function handleAccountsChanged(accounts) {
+            if (accounts.length === 0) {
+                // User disconnected
+                connectedAccount = null;
+                location.reload(); // simple reset for demo
+            } else {
+                connectedAccount = accounts[0];
+                updateWalletUI();
+            }
+        }
+
+        function updateWalletUI() {
+            if (!connectedAccount) return;
+            
+            const shortAddr = `${connectedAccount.slice(0,6)}...${connectedAccount.slice(-4)}`;
+            
+            document.querySelectorAll('button').forEach(btn => {
+                if (btn.innerText.includes('Connect') || btn.innerHTML.includes('wallet') || btn.innerHTML.includes('Connecting')) {
+                    btn.innerHTML = `
+                        <span class="flex items-center gap-x-2 text-emerald-400">
+                            <i class="fa-solid fa-check-circle"></i> 
+                            <span class="font-mono">${shortAddr}</span>
+                        </span>
+                    `;
+                    btn.onclick = disconnectWallet;
+                    btn.title = 'Click to disconnect';
+                }
+            });
+            
+            // Also update any "Join Presale" text if needed
+            const ctaBtn = document.querySelector('button[onclick*="showBuyModal"]');
+            if (ctaBtn && ctaBtn.innerText.includes('Buy DMT Now')) {
+                ctaBtn.innerHTML = `<span>Buy DMT — Connected</span> <i class="fa-solid fa-arrow-right-long"></i>`;
+            }
+        }
+
+        function disconnectWallet() {
+            connectedAccount = null;
+            // Reset all wallet buttons
+            document.querySelectorAll('button').forEach(btn => {
+                if (btn.innerHTML.includes('...') || btn.innerHTML.includes('fa-check-circle')) {
+                    btn.innerHTML = `<span class="flex items-center gap-x-2"><i class="fa-solid fa-wallet text-indigo-400"></i> <span>Connect Wallet</span></span>`;
+                    btn.onclick = connectWallet; // re-attach original
+                }
+            });
+            
+            // Reset CTA if changed
+            const ctaBtn = document.querySelector('button[onclick*="showBuyModal"]');
+            if (ctaBtn) {
+                ctaBtn.innerHTML = `<span>Buy DMT Now — $0.010</span> <i class="fa-solid fa-arrow-right-long"></i>`;
+                ctaBtn.onclick = () => showBuyModal();
+            }
+            
+            const toast = document.getElementById('toast');
+            const message = document.getElementById('toastMessage');
+            message.textContent = 'Wallet disconnected.';
+            toast.style.display = 'flex';
+            toast.classList.remove('hidden');
+            toast.style.backgroundColor = '#64748b';
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.3s ease';
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transition = '';
+                    toast.style.display = 'none';
+                    toast.style.backgroundColor = '#10b981';
+                    toast.classList.add('hidden');
+                }, 300);
+            }, 1500);
+        }
+
+        // === Portfolio / Per-Wallet Tracking (localStorage) ===
+        function getPortfolio(wallet) {
+            if (!wallet) return null;
+            const data = localStorage.getItem('dmt_portfolio_' + wallet.toLowerCase());
+            return data ? JSON.parse(data) : { balance: 0, purchases: [] };
+        }
+
+        function savePortfolio(wallet, portfolioData) {
+            if (!wallet) return;
+            localStorage.setItem('dmt_portfolio_' + wallet.toLowerCase(), JSON.stringify(portfolioData));
+        }
+
+        function updateGlobalStats(usdAdded, isNewParticipant = false) {
+            let stats = JSON.parse(localStorage.getItem('dmt_global_stats') || '{"raised": 4.87, "participants": 12847}');
+            stats.raised = parseFloat((stats.raised + usdAdded).toFixed(2));
+            
+            if (isNewParticipant) stats.participants++;
+            
+            localStorage.setItem('dmt_global_stats', JSON.stringify(stats));
+            
+            // Update live UI
+            const raisedEl = document.getElementById('raised');
+            const participantsEl = document.getElementById('participants');
+            if (raisedEl) raisedEl.textContent = stats.raised;
+            if (participantsEl) participantsEl.textContent = stats.participants.toLocaleString();
+        }
+
+        function updatePortfolioDisplay() {
+            if (!connectedAccount) return;
+            
+            const port = getPortfolio(connectedAccount);
+            const shortAddr = `${connectedAccount.slice(0,6)}...${connectedAccount.slice(-4)}`;
+            
+            // Add or update a "My Portfolio" button in the navbar
+            let portfolioBtn = document.getElementById('portfolio-btn');
+            if (!portfolioBtn) {
+                portfolioBtn = document.createElement('button');
+                portfolioBtn.id = 'portfolio-btn';
+                portfolioBtn.className = 'hidden md:flex items-center gap-x-2 px-4 py-2 text-sm font-medium border border-slate-700 hover:border-emerald-500 rounded-2xl transition-all';
+                portfolioBtn.onclick = showPortfolioModal;
+                
+                const navRight = document.querySelector('nav .flex.items-center.gap-x-4');
+                if (navRight) navRight.insertBefore(portfolioBtn, navRight.firstChild);
+            }
+            
+            const dmtBalance = port.balance.toLocaleString();
+            portfolioBtn.innerHTML = `
+                <span class="flex items-center gap-x-2">
+                    <i class="fa-solid fa-wallet text-emerald-400"></i>
+                    <span><span class="font-mono">${dmtBalance}</span> DMT</span>
+                </span>
+            `;
+            portfolioBtn.title = `You own ${port.balance.toLocaleString()} DMT • Click to view portfolio`;
+            portfolioBtn.classList.remove('hidden');
+        }
+
+        // Network helper (shows current chain + switch button)
+        async function updateNetworkUI() {
+            if (!connectedAccount || typeof window.ethereum === 'undefined') return;
+            
+            try {
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                const chainName = chainId === '0x1' ? 'Ethereum' : 
+                                  chainId === '0xaa36a7' ? 'Sepolia' : 
+                                  chainId === '0x5' ? 'Goerli' : `Chain ${parseInt(chainId, 16)}`;
+                
+                let netBadge = document.getElementById('network-badge');
+                if (!netBadge) {
+                    netBadge = document.createElement('div');
+                    netBadge.id = 'network-badge';
+                    netBadge.className = 'hidden md:flex items-center text-xs px-3 py-1 rounded-2xl border border-slate-700 text-slate-400';
+                    
+                    const navRight = document.querySelector('nav .flex.items-center.gap-x-4');
+                    if (navRight) navRight.insertBefore(netBadge, navRight.children[1] || null);
+                }
+                
+                const isTestnet = chainId !== '0x1';
+                netBadge.innerHTML = `
+                    <span class="${isTestnet ? 'text-amber-400' : 'text-emerald-400'}">●</span>
+                    <span class="ml-1.5">${chainName}</span>
+                    ${isTestnet ? `<button onclick="switchToSepolia()" class="ml-2 text-[10px] underline hover:no-underline">Switch to Sepolia</button>` : ''}
+                `;
+                netBadge.classList.remove('hidden');
+            } catch (e) {}
+        }
+
+        async function switchToSepolia() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0xaa36a7' }]
+                });
+                setTimeout(() => location.reload(), 800);
+            } catch (err) {
+                if (err.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: '0xaa36a7',
+                                chainName: 'Sepolia Testnet',
+                                nativeCurrency: { name: 'Sepolia ETH', symbol: 'SEP', decimals: 18 },
+                                rpcUrls: ['https://rpc.sepolia.org'],
+                                blockExplorerUrls: ['https://sepolia.etherscan.io']
+                            }]
+                        });
+                    } catch (addErr) {
+                        alert('Please add Sepolia network manually in MetaMask');
+                    }
+                }
+            }
+        }
+
+        function showPortfolioModal() {
+            if (!connectedAccount) return;
+            
+            const port = getPortfolio(connectedAccount);
+            const currentValue = (port.balance * DMT_PRICE).toFixed(0);
+            const projectedValue = (port.balance * PROJECTED_PRICE).toFixed(0);
+            const roi = port.balance > 0 ? ((PROJECTED_PRICE / DMT_PRICE - 1) * 100).toFixed(0) : 0;
+            
+            const modalHTML = `
+                <div id="portfolioModal" onclick="this.remove()" class="fixed inset-0 bg-black/80 backdrop-blur-xl z-[110] flex items-center justify-center p-6">
+                    <div onclick="event.stopImmediatePropagation()" class="glass max-w-lg w-full rounded-3xl border border-slate-700 overflow-hidden">
+                        <div class="px-8 pt-8 pb-6 border-b border-slate-700 flex items-center justify-between">
+                            <div>
+                                <div class="font-semibold text-2xl">Your DMT Portfolio</div>
+                                <div class="text-xs text-emerald-400 font-mono">${connectedAccount.slice(0,6)}...${connectedAccount.slice(-4)}</div>
+                            </div>
+                            <button onclick="document.getElementById('portfolioModal').remove()" class="text-2xl text-slate-400 hover:text-white">&times;</button>
+                        </div>
+                        
+                        <div class="p-8">
+                            <!-- Big Balance -->
+                            <div class="text-center mb-8">
+                                <div class="text-sm text-slate-400">CURRENT BALANCE</div>
+                                <div class="text-7xl font-display font-bold tabular-nums mt-2">${port.balance.toLocaleString()}</div>
+                                <div class="text-2xl text-emerald-400">DMT</div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-8">
+                                <div class="glass rounded-2xl p-5 border border-slate-700">
+                                    <div class="text-xs text-slate-400">CURRENT VALUE</div>
+                                    <div class="text-3xl font-semibold mt-1">$${currentValue}</div>
+                                    <div class="text-xs text-slate-500">at $${DMT_PRICE}</div>
+                                </div>
+                                <div class="glass rounded-2xl p-5 border border-emerald-500/30 bg-emerald-500/5">
+                                    <div class="text-xs text-emerald-400">PROJECTED @ 10×</div>
+                                    <div class="text-3xl font-semibold mt-1 text-emerald-400">$${projectedValue}</div>
+                                    <div class="text-xs text-emerald-400">+${roi}% ROI</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Purchase History -->
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="font-semibold">Purchase History</div>
+                                    <div class="text-xs text-slate-400">${port.purchases.length} transaction${port.purchases.length !== 1 ? 's' : ''}</div>
+                                </div>
+                                
+                                ${port.purchases.length > 0 ? `
+                                    <div class="max-h-48 overflow-y-auto space-y-2 pr-2">
+                                        ${port.purchases.map(p => {
+                                            const date = new Date(p.time).toLocaleDateString('en-US', {month:'short', day:'numeric'});
+                                            const time = new Date(p.time).toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'});
+                                            return `
+                                                <div class="flex justify-between items-center text-sm bg-slate-900/70 px-4 py-3 rounded-2xl border border-slate-700">
+                                                    <div>
+                                                        <div class="font-mono text-emerald-400">+${p.amount.toLocaleString()} DMT</div>
+                                                        <div class="text-xs text-slate-500">${date} ${time}</div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <div class="font-medium">$${p.usd}</div>
+                                                        <a href="https://etherscan.io/tx/${p.tx}" target="_blank" class="text-xs text-indigo-400 hover:underline">View tx</a>
+                                                    </div>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                    </div>
+                                ` : `
+                                    <div class="text-center py-8 text-slate-400 text-sm">
+                                        No purchases yet.<br>
+                                        <span class="text-emerald-400 cursor-pointer" onclick="document.getElementById('portfolioModal').remove(); showBuyModal();">Buy your first DMT →</span>
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                        
+                        <div class="px-8 py-5 border-t border-slate-700 flex gap-3">
+                            <button onclick="document.getElementById('portfolioModal').remove()" class="flex-1 py-3 text-sm border border-slate-700 rounded-2xl hover:bg-slate-800 transition-all">Close</button>
+                            <button onclick="document.getElementById('portfolioModal').remove(); showBuyModal();" class="flex-1 py-3 text-sm bg-emerald-500 hover:bg-emerald-600 text-white rounded-2xl font-medium transition-all">Buy More DMT</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const nav = document.querySelector('nav');
+            const menu = document.createElement('div');
+            menu.className = `md:hidden fixed inset-0 bg-slate-950/95 z-[90] flex flex-col pt-20 px-8`;
+            menu.innerHTML = `
+                <div class="space-y-2 text-xl">
+                    <a href="#about" class="block py-4 border-b border-slate-800">About DMT</a>
+                    <a href="#tokenomics" class="block py-4 border-b border-slate-800">Tokenomics</a>
+                    <a href="#roadmap" class="block py-4 border-b border-slate-800">Roadmap</a>
+                    <a href="#presale" class="block py-4 border-b border-slate-800">Presale Stages</a>
+                </div>
+                
+                <div class="mt-auto pb-12">
+                    <button onclick="connectWallet(); this.closest('.fixed').remove()" class="w-full py-4 text-center border border-slate-700 rounded-2xl mb-3">Connect Wallet</button>
+                    <button onclick="showBuyModal(); this.closest('.fixed').remove()" class="w-full py-4 text-center bg-white text-slate-950 rounded-2xl font-semibold">Join Presale</button>
+                </div>
+            `;
+            
+            document.body.appendChild(menu);
+            
+            menu.onclick = function(e) {
+                if (e.target === menu) menu.remove();
+            };
+            
+            // Close on nav click
+            menu.querySelectorAll('a').forEach(link => {
+                link.onclick = () => menu.remove();
+            });
+        }
+        
+        // Initialize everything
+        function initializeWebsite() {
+            initTailwind();
+            startCountdown();
+            createTokenomicsChart();
+            
+            // Load persisted global stats
+            const savedStats = JSON.parse(localStorage.getItem('dmt_global_stats') || '{"raised": 4.87, "participants": 12847}');
+            const raisedEl = document.getElementById('raised');
+            const participantsEl = document.getElementById('participants');
+            if (raisedEl) raisedEl.textContent = savedStats.raised;
+            if (participantsEl) participantsEl.textContent = savedStats.participants.toLocaleString();
+            
+            // Check if wallet already connected (e.g. page refresh)
+            if (typeof window.ethereum !== 'undefined' && window.ethereum.selectedAddress) {
+                connectedAccount = window.ethereum.selectedAddress;
+                setTimeout(() => {
+                    updateWalletUI();
+                    updatePortfolioDisplay();
+                    updateNetworkUI();
+                }, 600);
+            }
+            
+            // Seed initial ETH amount calculation
+            setTimeout(() => {
+                const ethInput = document.getElementById('ethAmount');
+                if (ethInput) ethInput.addEventListener('input', calculateDMT);
+            }, 800);
+            
+            // Keyboard escape for modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const modal = document.getElementById('buyModal');
+                    if (!modal.classList.contains('hidden')) {
+                        hideBuyModal();
+                    }
+                }
+            });
+            
+            // Easter egg: logo click for confetti
+            const logo = document.querySelector('.fa-wallet')?.closest('button');
+            if (logo) logo.addEventListener('click', () => launchConfetti());
+            
+            // Random live participant bump
+            setInterval(() => {
+                const participantsEl = document.getElementById('participants');
+                if (participantsEl && Math.random() > 0.75) {
+                    let num = parseInt(participantsEl.textContent.replace(',', ''));
+                    num += 1;
+                    participantsEl.textContent = num.toLocaleString();
+                }
+            }, 38000);
+            
+            // Easter egg: click logo for confetti
+            const logo = document.querySelector('.fa-wallet')?.parentElement;
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    if (Math.random() > 0.6) launchConfetti();
+                });
+            }
+            
+            console.log('%c[DMT] Professional presale website initialized successfully.', 'color:#64748b');
+        }
+        
+        // Boot
+        window.onload = initializeWebsite;
+    </script>
+</body>
+</html>
